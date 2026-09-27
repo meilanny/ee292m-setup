@@ -2,6 +2,12 @@ IMAGE ?= ee292m-setup
 # The coding agent only needs to be present on the dev machine, not in CI.
 AGENT ?= claude
 
+# From PowerShell/cmd, GNU make falls back to cmd.exe; use Git's sh so the
+# recipes behave the same in Git Bash, PowerShell, and CI.
+ifeq ($(OS),Windows_NT)
+SHELL := C:/Program Files/Git/bin/sh.exe
+endif
+
 .PHONY: verify tools git docker agent test clean
 
 verify: tools git docker agent test

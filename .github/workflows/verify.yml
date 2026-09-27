@@ -1,0 +1,9 @@
+name: verify
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: git config user.name ci && git config user.email ci@example.com
+      - run: make verify
